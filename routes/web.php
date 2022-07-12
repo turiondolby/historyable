@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,6 @@ Route::get('/', function () {
     $user = User::find(1);
 
     $user->update([
-        'name' => 'Tom'
+        'name' => Str::random(10)
     ]);
 });
