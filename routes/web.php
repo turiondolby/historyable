@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $user = User::find(1);
 
-    $user->history()->create([
-        'changed_column' => 'name',
-        'changed_value_from' => 'Haleem',
-        'changed_value_to' => 'Bob'
+    $user->update([
+        'name' => 'Tom'
     ]);
 });
