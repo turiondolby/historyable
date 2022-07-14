@@ -12,7 +12,7 @@ trait Historyable
     public static function bootHistoryable()
     {
         static::updated(function (Model $model) {
-            collect($model->getChangedColumns($model))->each(function ($change) use ($model) {
+            collect($model->getWantedChangedColumns($model))->each(function ($change) use ($model) {
                 $model->saveChange($change);
             });
         });
@@ -27,11 +27,11 @@ trait Historyable
         ]);
     }
 
-    protected function getChangedColumns(Model $model)
+    protected function getWantedChangedColumns(Model $model)
     {
         return collect(
             array_diff(
-                $model->getChanges(),
+                Arr::except($model->getChanges(), $this->ignoreHistoryColumns()),
                 $original = $model->getOriginal()
             )
         )->map(function ($change, $column) use ($original) {
@@ -42,5 +42,12 @@ trait Historyable
     public function history()
     {
         return $this->morphMany(History::class, 'historyable')->latest();
+    }
+
+    public function ignoreHistoryColumns()
+    {
+        return [
+            'updated_at'
+        ];
     }
 }

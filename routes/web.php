@@ -19,6 +19,7 @@ Route::get('/', function () {
     $user = User::find(1);
 
     $user->update([
-        'name' => Str::random(10)
+        'name' => Str::random(10),
+        'password' => bcrypt('cats')
     ]);
 });
