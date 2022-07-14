@@ -41,7 +41,7 @@ trait Historyable
 
     public function history()
     {
-        return $this->morphMany(History::class, 'historyable')->latest();
+        return $this->morphMany(History::class, 'historyable')->oldest();
     }
 
     public function ignoreHistoryColumns()

@@ -23,3 +23,9 @@ Route::get('/', function () {
         'password' => bcrypt('cats')
     ]);
 });
+
+Route::get('users/{user}/history', function (User $user) {
+    return view('users.history', [
+        'histories' => $user->history
+    ]);
+});
